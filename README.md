@@ -45,10 +45,6 @@ Asegúrate de tener instalados los siguientes programas:
    npx prisma migrate dev --name init
    ```
 
-   ```
-
-   ```
-
 6. Sincroniza el esquema de la base de datos:
    ```bash
    npx prisma db push
