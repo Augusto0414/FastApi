@@ -1,4 +1,4 @@
-# Todo FastApi
+# Nombre de la Aplicación
 
 Descripción breve de la aplicación y su propósito.
 
@@ -45,7 +45,14 @@ Asegúrate de tener instalados los siguientes programas:
    npx prisma migrate dev --name init
    ```
 
-6. Sincroniza el esquema de la base de datos:
+6. Genera nuevamente el cliente de Prisma:
+
+   ```bash
+   npx prisma generate
+   ```
+
+7. Sincroniza el esquema de la base de datos:
+
    ```bash
    npx prisma db push
    ```
@@ -64,6 +71,18 @@ Para ejecutar la aplicación en un contenedor Docker, utiliza:
 
 ```bash
 docker compose up -d
+```
+
+## Cuerpo de Datos de la API
+
+La API utiliza el siguiente cuerpo de datos para las tareas:
+
+```json
+{
+  "title": "Mi nueva tarea",
+  "description": "Esta es una tarea de prueba",
+  "completed": true
+}
 ```
 
 ## Contribuciones
