@@ -12,57 +12,16 @@ Asegúrate de tener instalados los siguientes programas:
 
 ## Instalación
 
-1. Clona el repositorio:
-
-   ```bash
-   git clone https://github.com/tu_usuario/nombre_del_repositorio.git
-   cd nombre_del_repositorio
-   ```
-
-2. Crea y activa un entorno virtual:
-
-   ```bash
-   .venv\Scripts\activate  # En Windows
-   # o
-   source .venv/bin/activate  # En macOS/Linux
-   ```
-
-3. Instala las dependencias:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Genera el cliente de Prisma:
-
-   ```bash
-   npx prisma@5.17.0 generate
-   ```
-
-5. Realiza la migración inicial de la base de datos:
-
-   ```bash
-   npx prisma migrate dev --name init
-   ```
-
-6. Genera nuevamente el cliente de Prisma:
-
-   ```bash
-   npx prisma generate
-   ```
-
-7. Sincroniza el esquema de la base de datos:
-
-   ```bash
-   npx prisma db push
-   ```
-
-## Ejecución
-
-Para iniciar la aplicación, utiliza el siguiente comando:
+# Crea y activa un entorno virtual:
 
 ```bash
-uvicorn app.main:app --reload
+#1 priemra opcion
+.venv\Scripts\activate  # En Windows
+#2 segunda opcion
+ python -m venv env
+# o
+source .venv/bin/activate  # En macOS/Linux
+
 ```
 
 ## Despliegue con Docker
@@ -71,6 +30,44 @@ Para ejecutar la aplicación en un contenedor Docker, utiliza:
 
 ```bash
 docker compose up -d
+```
+
+# Crear un archivo .env y agregar la siguiente línea
+
+```plaintext
+DATABASE_URL="postgresql://postgres:password@localhost:5439/mydb?schema=public"
+```
+
+# Instala las dependencias:
+
+```bash
+pip install -r requirements.txt
+```
+
+# Genera el cliente de Prisma:
+
+```bash
+npx prisma@5.11.0 generate
+```
+
+# Realiza la migración inicial de la base de datos:
+
+```bash
+npx prisma@5.11.0 migrate dev --name init
+```
+
+# Sincroniza el esquema de la base de datos:
+
+```bash
+npx prisma@5.11.0 db push
+```
+
+## Ejecución
+
+Para iniciar la aplicación, utiliza el siguiente comando:
+
+```bash
+uvicorn app.main:app --reload
 ```
 
 ## Cuerpo de Datos de la API
