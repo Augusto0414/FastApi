@@ -1,29 +1,59 @@
-from prisma import Prisma
+# routes.py
+from fastapi import APIRouter, HTTPException
+from typing import List
 from app.models import TodoCreate, Todo
+from prisma import Prisma
 
+router = APIRouter()
 prisma = Prisma()
 
-async def create_todo(todo: TodoCreate) -> Todo:
+async def create_todo(todo: TodoCreate) -> dict:
     """Crear un nuevo todo"""
-    return await prisma.todo.create(
+    created_todo = await prisma.todo.create(
         data={
             'title': todo.title,
             'description': todo.description,
             'completed': todo.completed
         }
     )
+    
+    return {
+        'id': created_todo.id,
+        'title': created_todo.title,
+        'description': created_todo.description,
+        'completed': created_todo.completed
+    }
 
-async def get_all_todos() -> list[Todo]:
+async def get_all_todos() -> list[dict]:
     """Obtener todos los todos"""
-    return await prisma.todo.find_many()
+    todos = await prisma.todo.find_many()
+    
+    return [
+        {
+            'id': todo.id,
+            'title': todo.title,
+            'description': todo.description,
+            'completed': todo.completed
+        }
+        for todo in todos
+    ]
 
-async def get_todo_by_id(todo_id: str) -> Todo | None:
+async def get_todo_by_id(todo_id: str) -> dict | None:
     """Obtener un todo por ID"""
-    return await prisma.todo.find_unique(where={'id': todo_id})
+    todo = await prisma.todo.find_unique(where={'id': todo_id})
+    if not todo:
+        return None
+        
+    return {
+        'id': todo.id,
+        'title': todo.title,
+        'description': todo.description,
+        'completed': todo.completed
+    }
 
-async def update_todo(todo_id: str, todo: TodoCreate) -> Todo:
+async def update_todo(todo_id: str, todo: TodoCreate) -> dict:
     """Actualizar un todo"""
-    return await prisma.todo.update(
+    updated_todo = await prisma.todo.update(
         where={'id': todo_id},
         data={
             'title': todo.title,
@@ -31,7 +61,10 @@ async def update_todo(todo_id: str, todo: TodoCreate) -> Todo:
             'completed': todo.completed
         }
     )
-
-async def delete_todo(todo_id: str) -> None:
-    """Eliminar un todo"""
-    await prisma.todo.delete(where={'id': todo_id})
+    
+    return {
+        'id': updated_todo.id,
+        'title': updated_todo.title,
+        'description': updated_todo.description,
+        'completed': updated_todo.completed
+    }
