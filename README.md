@@ -29,7 +29,7 @@ source .venv/bin/activate  # En macOS/Linux
 Para ejecutar la aplicación en un contenedor Docker, utiliza:
 
 ```bash
-docker compose up -d
+docker compose -f docker-compose.dev.yml up
 ```
 
 # Crear un archivo .env y agregar la siguiente línea
@@ -68,6 +68,20 @@ Para iniciar la aplicación, utiliza el siguiente comando:
 
 ```bash
 uvicorn app.main:app --reload
+```
+
+## Docker
+
+Para crear la imagen de docker, utiliza:
+
+```bash
+docker build -t my-app .
+```
+
+y para ejecutar la imagen
+
+```bash
+docker compose -f docker-compose.yml up
 ```
 
 ## Cuerpo de Datos de la API

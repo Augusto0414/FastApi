@@ -2,7 +2,9 @@ from fastapi import FastAPI, HTTPException
 from prisma import Prisma
 from app.routes import router
 from contextlib import asynccontextmanager
+from dotenv import load_dotenv
 
+load_dotenv()
 # Inicializar Prisma como variable global
 prisma = Prisma()
 
