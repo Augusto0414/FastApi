@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, status
 from typing import List
 from app.models import TodoCreate, Todo
 from prisma import Prisma
@@ -7,7 +7,7 @@ from prisma.models import Todo as PrismaTodo
 router = APIRouter()
 prisma = Prisma()
 
-@router.post("/todo/", response_model=Todo)
+@router.post("/todo/", response_model=Todo,  status_code=status.HTTP_201_CREATED)
 async def create_todo_route(todo: TodoCreate):
     """Crear un nuevo todo"""
     if not prisma.is_connected():
