@@ -96,6 +96,12 @@ La API utiliza el siguiente cuerpo de datos para las tareas:
 }
 ```
 
+# Link del dockerhub
+
+```plaintext
+https://hub.docker.com/repository/docker/augusto04/fast-api-py/general
+```
+
 ## Contribuciones
 
 Si deseas contribuir, por favor abre un issue o envía un pull request.
