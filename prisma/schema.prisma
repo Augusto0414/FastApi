@@ -7,9 +7,9 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Todo {
+model Todito {
     id          String  @id @default(uuid())
     title       String
     description String
-    completed   Boolean
+    completed   Boolean @default(false)
 }

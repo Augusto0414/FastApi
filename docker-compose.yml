@@ -1,33 +1,29 @@
 version: "3.8"
 
 services:
-  postgres:
-    image: postgres:latest
-    environment:
-      POSTGRES_DB: mydb
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-    ports:
-      - "5432:5432"
-    networks:
-      - app-network
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "mydb"]
-      interval: 10s
-      retries: 5
-      start_period: 5s
-
   app:
-    build: .
-    environment:
-      DATABASE_URL: "postgresql://postgres:password@postgres:5432/mydb?schema=public"
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/mydb?schema=public
     depends_on:
       - postgres
     networks:
       - app-network
-    restart: unless-stopped
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
 
 networks:
   app-network:
